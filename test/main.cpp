@@ -6,6 +6,7 @@
 #include <ctime>
 #include "ConsistentHash.hpp"
 #include "gtest/gtest.h"
+#include "shim.hpp"
 
 using namespace std;
 
@@ -43,7 +44,7 @@ namespace {
         RingNode rn1("127.0.0.1:8080");
         RingNode rn2("127.0.0.1:8081");
 
-        Ring r(5);
+        Ring r(5, MD5());
         r.add(rn1);
         r.add(rn2);
 
@@ -79,7 +80,7 @@ namespace {
         RingNode rn2("127.0.0.1:8081");
         RingNode rn3("127.0.0.1:8082");
 
-        Ring r(5);
+        Ring r(5, MD5());
         r.add(rn1);
         r.add(rn2);
         r.add(rn3);

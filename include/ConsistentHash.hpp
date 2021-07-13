@@ -5,9 +5,10 @@
 #include <set>
 #include <utility>
 #include <cstdint>
+#include <functional>
 #include <map>
-#include "hash-library/md5.h"
 
+using HashFunc = std::function<std::string(const std::string& text)>;
 
 struct RingNode {
     RingNode() = default;
@@ -24,7 +25,7 @@ struct RingNode {
 
 class Ring {
 public:
-    Ring(size_t max_size);
+    Ring(size_t max_size, HashFunc hash_func);
 
     void add(const RingNode& node);
 
@@ -39,5 +40,5 @@ private:
 
     std::map<uint64_t, RingNode> _nodes;
     size_t _max_size;
-    mutable MD5 _md5;
+    HashFunc _hash;
 };
